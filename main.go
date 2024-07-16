@@ -78,7 +78,7 @@ func main() {
 	api := router.Group("/api/v1")
 
 	// router private
-	private := router.Group("/private/api/v1").Use(authMiddleware(authService, userService, pelangganService))
+	private := router.Group("/api/private/v1").Use(authMiddleware(authService, userService, pelangganService))
 
 	// api
 		// auth
