@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"pln/auth"
 	"pln/handler"
 	"pln/helper"
@@ -24,19 +25,27 @@ import (
 )
 
 func main() {
+	// load env
+	err := godotenv.Load()
+    if err != nil {
+        log.Fatalf("Error loading .env file: %v", err)
+    }
+
 	// koneksi ke database PLN
-	dsn := "root:@tcp(127.0.0.1:3306)/pln?charset=utf8mb4&parseTime=True&loc=Local"
+	dbUser := os.Getenv("DB_USER")
+    dbPassword := os.Getenv("DB_PASSWORD")
+    dbHost := os.Getenv("DB_HOST")
+    dbPort := os.Getenv("DB_PORT")
+    dbName := os.Getenv("DB_NAME")
+
+    // Create the DSN string
+    dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+        dbUser, dbPassword, dbHost, dbPort, dbName)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-
-	// load env
-	err = godotenv.Load()
-    if err != nil {
-        log.Fatalf("Error loading .env file: %v", err)
-    }
 
 	// repository
 	userRepository := user.NewRepostiory(db)
