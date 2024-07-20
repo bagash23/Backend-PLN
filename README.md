@@ -4,10 +4,6 @@ Berikut ada documentasi untuk menggunakan API ini
 ## Nama Database
 <b>pln</b>
 
-## Migrasi database
-```bash
-go run migrate/migrate.go
-```
 ## Start Server Golang
 ```bash
 go run main.go
