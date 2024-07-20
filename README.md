@@ -30,7 +30,7 @@ go run main.go
 }'
 ```
 
-## Reqyest API Login
+## Request API Login
 ```bash
 --header 'Content-Type: application/json' \
 --data '{
